@@ -1,3 +1,10 @@
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    //Link
+} from "react-router-dom";
+
 import './App.css';
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
@@ -5,14 +12,11 @@ import AdminPage from "./AdminPage";
 import UserPage from "./UserPage";
 import AdminRestaurant from "./AdminRestaurant";
 import AddRestaurant from "./AddRestaurant";
-import React from "react";
-import {
-    BrowserRouter as Router,
-    Routes,
-    Route,
-    //Link
-} from "react-router-dom";
 import AddFood from "./AddFood";
+import AdminRestaurantMenu from "./AdminRestaurantMenu";
+import UserViewRestaurants from "./UserViewRestaurants";
+import UserViewMenu from "./UserViewMenu";
+import React from "react";
 
 function App() {
   return (
@@ -26,6 +30,9 @@ function App() {
              <Route path="/adminRestaurant" element={<AdminRestaurant/>} />
              <Route path="/addRestaurant" element={<AddRestaurant/>} />
              <Route path="/addFood" element={<AddFood/>} />
+             <Route path="/AdminRestaurantMenu" element={<AdminRestaurantMenu/>} />
+             <Route path="/UserViewRestaurants" element = {<UserViewRestaurants/>} />
+             <Route path="/UserViewMenu" element = {<UserViewMenu/>} />
          </Routes>
      </Router>
   );

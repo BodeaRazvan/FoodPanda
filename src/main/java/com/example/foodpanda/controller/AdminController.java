@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @Controller
 @CrossOrigin
 public class AdminController {
@@ -38,6 +40,7 @@ public class AdminController {
         headers.add("Responded","LoginController");
         Restaurant currentRestaurant = LoginController.getCurrentUser().getRestaurant();
         if(currentRestaurant!=null){
+            System.out.println("Current Restaurant exists");
             if(!restaurantDTO.getName().equals("")){
                 currentRestaurant.setName(restaurantDTO.getName());
             }
@@ -47,16 +50,25 @@ public class AdminController {
             if(!restaurantDTO.getLocation().equals("")){
                 currentRestaurant.setLocation(restaurantDTO.getLocation());
             }
+            try{
             restaurantService.save(currentRestaurant);
             return  ResponseEntity.badRequest().headers(headers).body(currentRestaurant);
-        }else{
+            }catch (Exception e){
+                e.printStackTrace();
+                return ResponseEntity.badRequest().headers(headers).body(null);}
+        }else{ System.out.println("New Restaurant");
             if (restaurantDTO.getAvailableZones().equals("") || restaurantDTO.getLocation().equals("") || restaurantDTO.getName().equals("")){
                 return ResponseEntity.badRequest().headers(headers).body(null);
             }
             Restaurant restaurant = restaurantMapper.toEntity(restaurantDTO);
             restaurant.setOwner(LoginController.getCurrentUser());
+            LoginController.getCurrentUser().setRestaurant(restaurant);
+            try{
             restaurantService.save(restaurant);
             return ResponseEntity.ok().headers(headers).body(restaurant);
+            }catch (Exception e){
+                e.printStackTrace();
+                return ResponseEntity.badRequest().headers(headers).body(null);}
         }
     }
 
@@ -64,6 +76,12 @@ public class AdminController {
     public ResponseEntity<Restaurant> getRestaurant(){
        // System.out.println(LoginController.getCurrentUser().getRestaurant().getFoods().get(0).getCategory());
        // System.out.println(LoginController.getCurrentUser().getUsername());
+        /*
+        if(LoginController.getCurrentUser().getRestaurant()!=null){
+            for(Food food: LoginController.getCurrentUser().getRestaurant().getFoods()){
+                System.out.println(food.getName());
+            }
+        }*/
         return new ResponseEntity<>(LoginController.getCurrentUser().getRestaurant(), HttpStatus.OK);
     }
 
@@ -76,9 +94,18 @@ public class AdminController {
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
         Food food = FoodMapper.toEntity(foodDTO);
-        foodService.save(food);
+        try{
+            foodService.save(food);
+            LoginController.getCurrentUser().getRestaurant().getFoods().add(food);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return ResponseEntity.ok().headers(headers).body(food);
     }
 
-
+    @GetMapping("/getRestaurantFoods")
+    public ResponseEntity<List<Food>> getRestaurantFoods(){
+        List<Food> foods = LoginController.getCurrentUser().getRestaurant().getFoods();
+        return new ResponseEntity<>(foods, HttpStatus.OK);
+    }
 }

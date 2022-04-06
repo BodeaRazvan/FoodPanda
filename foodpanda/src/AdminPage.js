@@ -8,8 +8,9 @@ function AdminPage(){
         <div className="App">
             <header className="App-header">
                 <h1> AdminPage </h1>
-                <Link to="/register">Go to Register</Link>
-                <Link to="/adminRestaurant"> My Restaurant</Link>
+                <Link to="/login"> Log out </Link>
+                <Link to="/adminRestaurant"> My Restaurant </Link>
+                <Link to="/adminRestaurantMenu"> View Menu </Link>
             </header>
         </div>
     );
