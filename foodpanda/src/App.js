@@ -4,6 +4,7 @@ import {
     Route,
     //Link
 } from "react-router-dom";
+import React from "react";
 
 import './App.css';
 import LoginPage from "./LoginPage";
@@ -16,7 +17,7 @@ import AddFood from "./AddFood";
 import AdminRestaurantMenu from "./AdminRestaurantMenu";
 import UserViewRestaurants from "./UserViewRestaurants";
 import UserViewMenu from "./UserViewMenu";
-import React from "react";
+import UserViewCart from "./UserViewCart";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
              <Route path="/AdminRestaurantMenu" element={<AdminRestaurantMenu/>} />
              <Route path="/UserViewRestaurants" element = {<UserViewRestaurants/>} />
              <Route path="/UserViewMenu" element = {<UserViewMenu/>} />
+             <Route path="/UserViewCart" element = {<UserViewCart/>} />
          </Routes>
      </Router>
   );

@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 
@@ -6,6 +6,11 @@ function UserViewMenu () {
     const location = useLocation()
     const {id} = location.state
     const [menu, setMenu] = useState([])
+    const[cart, setCart] = useState([])
+
+    function addToCart(newItem){
+        return [...cart, newItem];
+    }
 
     useEffect(() => {
         console.log("Got hre");
@@ -31,7 +36,10 @@ function UserViewMenu () {
                 <ul>
                     {
                         breakfasts.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li
+                                key={food.name}>{food.name} {food.price}$
+                                <button onClick={()=>setCart(addToCart(food))}> Add to cart </button>
+                            </li>
                         )
                     }
                 </ul>
@@ -40,7 +48,10 @@ function UserViewMenu () {
                 <ul>
                     {
                         lunches.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li
+                                key={food.name}>{food.name} {food.price}$
+                                <button onClick={() => setCart(addToCart(food))}> Add to cart </button>
+                            </li>
                         )
                     }
                 </ul>
@@ -49,7 +60,10 @@ function UserViewMenu () {
                 <ul>
                     {
                         desserts.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li
+                                key={food.name}>{food.name} {food.price}$
+                                <button onClick={() => setCart(addToCart(food))}> Add to cart </button>
+                            </li>
                         )
                     }
                 </ul>
@@ -58,10 +72,16 @@ function UserViewMenu () {
                 <ul>
                     {
                         beverages.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li
+                                key={food.name}>{food.name} {food.price}$
+                                <button onClick={() => setCart(addToCart(food))}> Add to cart </button>
+                            </li>
                         )
                     }
                 </ul>
+                <Link to="/UserViewCart" state={{cart : cart}} >
+                <button onClick={()=>console.log(cart)}> Place order </button>
+                </Link>
             </header>
         </div>
     );
