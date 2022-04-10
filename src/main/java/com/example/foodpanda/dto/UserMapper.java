@@ -3,6 +3,15 @@ package com.example.foodpanda.dto;
 import com.example.foodpanda.entity.User;
 
 public class UserMapper {
+    private static volatile UserMapper userMapper = null;
+    private UserMapper() {}
+    public static UserMapper getInstance() {
+        if(userMapper == null) {
+            userMapper = new UserMapper();
+        }
+        return userMapper;
+    }
+
     public User convertFromLoginDTO(LoginDTO loginDTO){
         User user = new User();
         user.setAddress("");

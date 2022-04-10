@@ -1,6 +1,7 @@
 package com.example.foodpanda.controller;
 
 import com.example.foodpanda.entity.Food;
+import com.example.foodpanda.entity.Order;
 import com.example.foodpanda.entity.Restaurant;
 import com.example.foodpanda.entity.User;
 import com.example.foodpanda.service.OrderService;
@@ -56,6 +57,20 @@ public class UserController {
         headers.add("Responded","LoginController");
         orderService.createOrderFromFoodId(orderedFoodsId,LoginController.getCurrentUser());
         return ResponseEntity.accepted().headers(headers).body(orderedFoodsId);
+    }
+
+    @GetMapping("/getUserOrders")
+    public ResponseEntity<List<Order>> getOrders(){
+        List<Order> orders = LoginController.getCurrentUser().getOrder();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @GetMapping("/getOrderFoods/{id}")
+    public ResponseEntity<List<Food>> getOrderFoods(@PathVariable int id){
+        System.out.println("Fetching ordered foods");
+        System.out.println(" ");
+        List<Food> foods = orderService.findById(id).getFood();
+        return new ResponseEntity<>(foods, HttpStatus.OK);
     }
 
 }

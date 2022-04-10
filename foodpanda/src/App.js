@@ -20,6 +20,7 @@ import UserViewMenu from "./UserViewMenu";
 import UserViewCart from "./UserViewCart";
 import AdminViewOrder from "./AdminViewOrders";
 import UserViewOrders from "./UserViewOrders";
+import UserOrderDetails from "./UserOrderDetails";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
              <Route path="/UserViewCart" element = {<UserViewCart/>} />
              <Route path="/adminViewOrder" element = {<AdminViewOrder/>} />
              <Route path="/UserViewOrders" element = {<UserViewOrders/>} />
+             <Route path="/OrderDetails" element = {<UserOrderDetails/>} />
          </Routes>
      </Router>
   );

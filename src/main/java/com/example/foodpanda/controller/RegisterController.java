@@ -16,7 +16,7 @@ public class RegisterController {
 
     @Autowired
     private final UserService userService;
-    private final UserMapper userMapper = new UserMapper();
+    private final UserMapper userMapper = UserMapper.getInstance();
 
     @Autowired
     public RegisterController(UserService userService) {

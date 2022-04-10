@@ -98,7 +98,8 @@ public class AdminController {
         if(foodDTO.getCategory().equals("") || foodDTO.getName().equals("") || foodDTO.getPrice().equals("") || foodDTO.getDescription().equals("")){
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
-        Food food = FoodMapper.toEntity(foodDTO);
+        FoodMapper foodMapper = FoodMapper.getInstance();
+        Food food = foodMapper.toEntity(foodDTO);
         try{
             foodService.save(food);
             LoginController.getCurrentUser().getRestaurant().getFoods().add(food);

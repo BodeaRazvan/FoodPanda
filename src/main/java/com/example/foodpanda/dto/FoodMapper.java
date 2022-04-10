@@ -7,6 +7,16 @@ import com.example.foodpanda.entity.User;
 
 public class FoodMapper {
 
+    private static volatile FoodMapper foodMapper = null;
+    private FoodMapper(){}
+
+    public static FoodMapper getInstance(){
+        if(foodMapper == null){
+            foodMapper = new FoodMapper();
+        }
+        return foodMapper;
+    }
+
     public static Food toEntity(FoodDTO foodDTO) {
         User currentUser = LoginController.getCurrentUser();
         Food food = new Food();

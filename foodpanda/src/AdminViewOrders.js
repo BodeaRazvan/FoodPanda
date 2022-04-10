@@ -111,7 +111,9 @@ function AdminViewOrder(){
                                 { ((order.status !== 'DECLINED') && (order.status !== 'DELIVERED')) &&
                                 <button onClick={() => {declineOrder(order.id) }}> Decline</button>
                                 } <span/>
-                                <button > See Details </button>
+                                <Link to="/OrderDetails" state={{id: order.id}}>
+                                    <button > See details</button>
+                                </Link>
                             </li>
                         )
                     }

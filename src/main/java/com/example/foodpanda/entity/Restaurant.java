@@ -1,7 +1,7 @@
 package com.example.foodpanda.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -29,7 +29,7 @@ public class Restaurant {
     @OneToOne
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties("restaurant")
-    @JsonBackReference
+    @JsonManagedReference
     private User owner;
 
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.DETACH, orphanRemoval = true)

@@ -27,14 +27,12 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonIgnoreProperties("orders")
-    @JsonBackReference
     private Restaurant restaurant;
 
     @ManyToMany
     @JoinTable(name= "ordered_food",
                 joinColumns = @JoinColumn(name = "order_id"),
                 inverseJoinColumns = @JoinColumn(name = "food_id"))
-    @JsonIgnoreProperties("orders")
     @JsonBackReference
     private List<Food> food;
 
