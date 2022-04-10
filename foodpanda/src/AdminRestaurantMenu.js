@@ -33,7 +33,7 @@ class AdminRestaurantMenu extends Component{
                 <ul>
                     {
                         breakfasts.map(food =>
-                        <li key={food.name}>{food.name} {food.price}$</li>
+                        <li key={food.id}>{food.name} {food.price}$</li>
                         )
                     }
                 </ul>
@@ -42,7 +42,7 @@ class AdminRestaurantMenu extends Component{
                 <ul>
                     {
                         lunches.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li key={food.id}>{food.name} {food.price}$</li>
                         )
                     }
                 </ul>
@@ -51,7 +51,7 @@ class AdminRestaurantMenu extends Component{
                 <ul>
                     {
                         desserts.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li key={food.id}>{food.name} {food.price}$</li>
                         )
                     }
                 </ul>
@@ -60,7 +60,7 @@ class AdminRestaurantMenu extends Component{
                 <ul>
                     {
                         beverages.map(food =>
-                            <li key={food.name}>{food.name} {food.price}$</li>
+                            <li key={food.id}>{food.name} {food.price}$</li>
                         )
                     }
                 </ul>

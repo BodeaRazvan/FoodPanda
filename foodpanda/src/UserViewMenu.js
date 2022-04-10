@@ -37,7 +37,7 @@ function UserViewMenu () {
                     {
                         breakfasts.map(food =>
                             <li
-                                key={food.name}>{food.name} {food.price}$
+                                key={food.id}>{food.name} {food.price}$
                                 <button onClick={()=>setCart(addToCart(food))}> Add to cart </button>
                             </li>
                         )
@@ -49,7 +49,7 @@ function UserViewMenu () {
                     {
                         lunches.map(food =>
                             <li
-                                key={food.name}>{food.name} {food.price}$
+                                key={food.id}>{food.name} {food.price}$
                                 <button onClick={() => setCart(addToCart(food))}> Add to cart </button>
                             </li>
                         )
@@ -61,7 +61,7 @@ function UserViewMenu () {
                     {
                         desserts.map(food =>
                             <li
-                                key={food.name}>{food.name} {food.price}$
+                                key={food.id}>{food.name} {food.price}$
                                 <button onClick={() => setCart(addToCart(food))}> Add to cart </button>
                             </li>
                         )
@@ -73,14 +73,14 @@ function UserViewMenu () {
                     {
                         beverages.map(food =>
                             <li
-                                key={food.name}>{food.name} {food.price}$
+                                key={food.id}>{food.name} {food.price}$
                                 <button onClick={() => setCart(addToCart(food))}> Add to cart </button>
                             </li>
                         )
                     }
                 </ul>
                 <Link to="/UserViewCart" state={{cart : cart}} >
-                <button onClick={()=>console.log(cart)}> Place order </button>
+                <button onClick={()=>console.log(cart)}> See Cart </button>
                 </Link>
             </header>
         </div>

@@ -9,6 +9,7 @@ class UserViewRestaurants extends Component{
         super(props);
         this.state={
             restaurants:[],
+            restaurantNames:''
         }
     }
 
@@ -26,9 +27,19 @@ class UserViewRestaurants extends Component{
         <div className="App">
             <header className="App-header"> Restaurant List
                 <br/><br/>
+                <p> Search for name</p>
+                <input onChange={(e) => this.setState({...this.state, restaurantNames:e.target.value})}/>
+                <br/>
                     <ul>
                         {
-                            this.state.restaurants.map(restaurant =>
+                            this.state.restaurants.filter((restaurant) =>{
+                                console.log(this.state.restaurantNames)
+                                if(this.state.restaurantNames === ''){
+                                    return true;
+                                }
+                                return restaurant.name.toLowerCase().includes(this.state.restaurantNames.toLowerCase());
+                            })
+                                .map(restaurant =>
                                 <li key={restaurant.id}>
                                     {restaurant.name}
                                     <br/>

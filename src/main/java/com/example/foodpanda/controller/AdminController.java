@@ -5,8 +5,10 @@ import com.example.foodpanda.dto.FoodMapper;
 import com.example.foodpanda.dto.RestaurantDTO;
 import com.example.foodpanda.dto.RestaurantMapper;
 import com.example.foodpanda.entity.Food;
+import com.example.foodpanda.entity.Order;
 import com.example.foodpanda.entity.Restaurant;
 import com.example.foodpanda.service.FoodService;
+import com.example.foodpanda.service.OrderService;
 import com.example.foodpanda.service.RestaurantService;
 import com.example.foodpanda.service.UserService;
 import org.springframework.http.HttpHeaders;
@@ -26,12 +28,14 @@ public class AdminController {
     private final RestaurantService restaurantService;
     private final UserService userService;
     private final FoodService foodService;
+    private final OrderService orderService;
     private final RestaurantMapper restaurantMapper = new RestaurantMapper();
 
-    public AdminController(RestaurantService restaurantService, UserService userService, FoodService foodService) {
+    public AdminController(RestaurantService restaurantService, UserService userService, FoodService foodService, OrderService orderService) {
         this.restaurantService = restaurantService;
         this.userService = userService;
         this.foodService = foodService;
+        this.orderService = orderService;
     }
 
     @PostMapping("/addRestaurant")
@@ -62,6 +66,7 @@ public class AdminController {
             }
             Restaurant restaurant = restaurantMapper.toEntity(restaurantDTO);
             restaurant.setOwner(LoginController.getCurrentUser());
+            restaurant.setOrders(null);
             LoginController.getCurrentUser().setRestaurant(restaurant);
             try{
             restaurantService.save(restaurant);
@@ -107,5 +112,29 @@ public class AdminController {
     public ResponseEntity<List<Food>> getRestaurantFoods(){
         List<Food> foods = LoginController.getCurrentUser().getRestaurant().getFoods();
         return new ResponseEntity<>(foods, HttpStatus.OK);
+    }
+
+    @GetMapping("/getOrders")
+    public ResponseEntity<List<Order>> getRestaurantOrders(){
+        List<Order> orders = LoginController.getCurrentUser().getRestaurant().getOrders();
+        System.out.println(orders.size());
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @PostMapping("/declineOrder")
+    public ResponseEntity<Order> denyOrder(@RequestBody Integer orderId){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Responded","LoginController");
+        System.out.println("Decline order" + orderId);
+        Order order = orderService.denyOrder(orderId,LoginController.getCurrentUser().getRestaurant());
+        return ResponseEntity.ok().headers(headers).body(order);
+    }
+
+    @PostMapping("/nextOrderStatus")
+    public ResponseEntity<Order> nextStatus(@RequestBody Integer orderId){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Responded","LoginController");
+        Order order = orderService.nextStatus(orderId,LoginController.getCurrentUser().getRestaurant());
+        return ResponseEntity.ok().headers(headers).body(order);
     }
 }

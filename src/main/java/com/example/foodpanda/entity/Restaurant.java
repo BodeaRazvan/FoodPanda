@@ -1,5 +1,6 @@
 package com.example.foodpanda.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -21,11 +22,17 @@ public class Restaurant {
     @Column
     private String availableZones;
 
+    @OneToMany
+    @JsonIgnoreProperties("restaurant")
+    private List<Order> orders;
+
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties("restaurant")
+    @JsonBackReference
     private User owner;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.DETACH, orphanRemoval = true)
     @JsonIgnoreProperties("restaurant")
     private List<Food> foods;
 
@@ -87,5 +94,13 @@ public class Restaurant {
 
     public void setFoods(List<Food> foods) {
         this.foods = foods;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

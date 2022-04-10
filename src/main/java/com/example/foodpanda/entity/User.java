@@ -2,6 +2,7 @@ package com.example.foodpanda.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -35,11 +36,14 @@ public class User {
     @Column
     private String role;
 
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.DETACH, orphanRemoval = true)
     @JsonIgnoreProperties("owner")
+    @JsonManagedReference
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, orphanRemoval = true)
+    @JsonIgnoreProperties("user")
+    @JsonManagedReference
     private List<Order> order;
 
 

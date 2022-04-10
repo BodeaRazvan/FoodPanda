@@ -3,6 +3,7 @@ package com.example.foodpanda.controller;
 import com.example.foodpanda.entity.Food;
 import com.example.foodpanda.entity.Restaurant;
 import com.example.foodpanda.entity.User;
+import com.example.foodpanda.service.OrderService;
 import com.example.foodpanda.service.RestaurantService;
 import com.example.foodpanda.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,13 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final RestaurantService restaurantService;
+    private final OrderService orderService;
 
     @Autowired
-    public UserController(UserService userService, RestaurantService restaurantService) {
+    public UserController(UserService userService, RestaurantService restaurantService, OrderService orderService) {
         this.userService = userService;
         this.restaurantService = restaurantService;
+        this.orderService = orderService;
     }
 
     @GetMapping("/users")
@@ -45,6 +48,14 @@ public class UserController {
         Restaurant restaurant = restaurantService.findById(id);
         List<Food> foods = restaurant.getFoods();
         return new ResponseEntity<>(foods, HttpStatus.OK);
+    }
+
+    @PostMapping("/placeOrder")
+    public ResponseEntity<List<Integer>> placeOrder(@RequestBody List<Integer> orderedFoodsId){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Responded","LoginController");
+        orderService.createOrderFromFoodId(orderedFoodsId,LoginController.getCurrentUser());
+        return ResponseEntity.accepted().headers(headers).body(orderedFoodsId);
     }
 
 }

@@ -1,5 +1,8 @@
 package com.example.foodpanda.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -23,9 +26,12 @@ public class Food {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
+    @JsonIgnoreProperties("foods")
     private Restaurant restaurant;
 
     @ManyToMany(mappedBy = "food")
+    @JsonIgnoreProperties("food")
+    @JsonManagedReference
     private List<Order> orders;
 
     public Food(){

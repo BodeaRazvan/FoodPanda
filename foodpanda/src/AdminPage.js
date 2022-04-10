@@ -11,6 +11,7 @@ function AdminPage(){
                 <Link to="/login"> Log out </Link>
                 <Link to="/adminRestaurant"> My Restaurant </Link>
                 <Link to="/adminRestaurantMenu"> View Menu </Link>
+                <Link to="/adminViewOrder"> Orders </Link>
             </header>
         </div>
     );

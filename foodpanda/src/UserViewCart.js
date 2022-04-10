@@ -7,9 +7,28 @@ import {useLocation} from "react-router";
 function UserViewCart(){
     const location = useLocation();
     const {cart} = location.state;
+    const totalPrice = cart.reduce((total, currValue) => total + currValue.price, 0).toFixed(2);
+
+    const placeOrder = () =>{
+        fetch('http://localhost:8080/foodpanda/placeOrder',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cart.map(item => item.id))
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.log(err));
+    }
+
     return (
         <div className="App">
             <header className="App-header">
+                <p>Total price: {totalPrice} </p>
+                <button onClick={placeOrder}> Place order </button>
                <ul>
                    {
                        cart.map(foodItem =>

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface FoodRepository extends JpaRepository<Food, Integer> {
     List<Food>  findAll();
+    Food findById(int id);
 }

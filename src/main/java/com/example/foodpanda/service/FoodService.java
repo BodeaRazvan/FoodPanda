@@ -24,4 +24,8 @@ public class FoodService {
         foodRepository.save(food);
     }
 
+    public Food findById(int id){
+        return foodRepository.findById(id);
+    }
+
 }

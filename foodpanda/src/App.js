@@ -18,6 +18,8 @@ import AdminRestaurantMenu from "./AdminRestaurantMenu";
 import UserViewRestaurants from "./UserViewRestaurants";
 import UserViewMenu from "./UserViewMenu";
 import UserViewCart from "./UserViewCart";
+import AdminViewOrder from "./AdminViewOrders";
+import UserViewOrders from "./UserViewOrders";
 
 function App() {
   return (
@@ -35,6 +37,8 @@ function App() {
              <Route path="/UserViewRestaurants" element = {<UserViewRestaurants/>} />
              <Route path="/UserViewMenu" element = {<UserViewMenu/>} />
              <Route path="/UserViewCart" element = {<UserViewCart/>} />
+             <Route path="/adminViewOrder" element = {<AdminViewOrder/>} />
+             <Route path="/UserViewOrders" element = {<UserViewOrders/>} />
          </Routes>
      </Router>
   );
