@@ -2,9 +2,11 @@ package com.example.foodpanda.controller;
 
 import com.example.foodpanda.dto.LoginDTO;
 import com.example.foodpanda.entity.User;
+import com.example.foodpanda.logger.MyLogger;
 import com.example.foodpanda.service.UserService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.Base64;
 @Controller
 @CrossOrigin
 public class LoginController {
+    private static final Logger LOGGER = MyLogger.getInstance();
+
     private static User currentUser;
 
     private final UserService userService;
@@ -42,19 +46,20 @@ public class LoginController {
 
     @PostMapping(value = "/loginuser", consumes = "application/json")
     public ResponseEntity<User> login(@RequestBody LoginDTO loginDTO){
+        LOGGER.info("Login controller request login user");
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         System.out.println(encoder.encode("parola"));
         User user = userService.findByUsername(loginDTO.getUsername());
 
         if (user != null && encoder.matches(loginDTO.getPassword(), user.getPassword())) {
             setCurrentUser(user);
-            System.out.println("Login success!");
+            LOGGER.info("User logged in successfully");
             HttpHeaders headers = new HttpHeaders();
             headers.add("Responded","LoginController");
             return  ResponseEntity.accepted().headers(headers).body(user);
         }
         //Fail to login
-        System.out.println("Login failed!");
+        LOGGER.error("Login failed (user not found or password is incorrect)");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded","LoginController");
         return  ResponseEntity.badRequest().headers(headers).body(null);

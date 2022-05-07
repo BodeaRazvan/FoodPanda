@@ -24,6 +24,9 @@ public class Order {
     @JsonIgnoreProperties("order")
     private User user;
 
+    @Column
+    private String details;
+
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     @JsonIgnoreProperties("orders")
@@ -50,6 +53,16 @@ public class Order {
         this.food = food;
         this.restaurant = restaurant;;
     }
+
+    public Order(String status, double price, User user, List<Food> food,Restaurant restaurant,String details) {
+        this.status = status;
+        this.price = price;
+        this.user = user;
+        this.food = food;
+        this.restaurant = restaurant;;
+        this.details = details;
+    }
+
     public Order(){
 
     }
@@ -101,4 +114,13 @@ public class Order {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
 }

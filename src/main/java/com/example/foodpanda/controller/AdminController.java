@@ -7,10 +7,12 @@ import com.example.foodpanda.dto.RestaurantMapper;
 import com.example.foodpanda.entity.Food;
 import com.example.foodpanda.entity.Order;
 import com.example.foodpanda.entity.Restaurant;
+import com.example.foodpanda.logger.MyLogger;
 import com.example.foodpanda.service.FoodService;
 import com.example.foodpanda.service.OrderService;
 import com.example.foodpanda.service.RestaurantService;
 import com.example.foodpanda.service.UserService;
+import org.slf4j.Logger;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,7 @@ import java.util.List;
 @Controller
 @CrossOrigin
 public class AdminController {
+    private static final Logger LOGGER = MyLogger.getInstance();
     private final RestaurantService restaurantService;
     private final UserService userService;
     private final FoodService foodService;
@@ -40,11 +43,12 @@ public class AdminController {
 
     @PostMapping("/addRestaurant")
         public ResponseEntity<Restaurant> addRestaurant(@RequestBody RestaurantDTO restaurantDTO){
+        LOGGER.info("Request for adding restaurant");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded","LoginController");
         Restaurant currentRestaurant = LoginController.getCurrentUser().getRestaurant();
         if(currentRestaurant!=null){
-            System.out.println("Current Restaurant exists");
+            LOGGER.warn("Restaurant already exists");
             if(!restaurantDTO.getName().equals("")){
                 currentRestaurant.setName(restaurantDTO.getName());
             }
@@ -56,12 +60,15 @@ public class AdminController {
             }
             try{
             restaurantService.save(currentRestaurant);
+            LOGGER.info("Restaurant updated");
             return  ResponseEntity.badRequest().headers(headers).body(currentRestaurant);
             }catch (Exception e){
+                LOGGER.error("Error while adding restaurant");
                 e.printStackTrace();
                 return ResponseEntity.badRequest().headers(headers).body(null);}
-        }else{ System.out.println("New Restaurant");
+        }else{ LOGGER.info("Adding new restaurant");
             if (restaurantDTO.getAvailableZones().equals("") || restaurantDTO.getLocation().equals("") || restaurantDTO.getName().equals("")){
+                LOGGER.warn("Empty fields");
                 return ResponseEntity.badRequest().headers(headers).body(null);
             }
             Restaurant restaurant = restaurantMapper.toEntity(restaurantDTO);
@@ -70,8 +77,10 @@ public class AdminController {
             LoginController.getCurrentUser().setRestaurant(restaurant);
             try{
             restaurantService.save(restaurant);
+            LOGGER.info("Restaurant added");
             return ResponseEntity.ok().headers(headers).body(restaurant);
             }catch (Exception e){
+                LOGGER.error("Error while adding restaurant");
                 e.printStackTrace();
                 return ResponseEntity.badRequest().headers(headers).body(null);}
         }
@@ -79,6 +88,7 @@ public class AdminController {
 
     @GetMapping("/getRestaurant")
     public ResponseEntity<Restaurant> getRestaurant(){
+       LOGGER.info("Request for getting restaurant");
        // System.out.println(LoginController.getCurrentUser().getRestaurant().getFoods().get(0).getCategory());
        // System.out.println(LoginController.getCurrentUser().getUsername());
         /*
@@ -92,10 +102,12 @@ public class AdminController {
 
     @PostMapping("/addFood")
     public ResponseEntity<Food> addFood(@RequestBody FoodDTO foodDTO){
+        LOGGER.info("Request for adding food");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded","LoginController");
         Restaurant currentRestaurant = LoginController.getCurrentUser().getRestaurant();
         if(foodDTO.getCategory().equals("") || foodDTO.getName().equals("") || foodDTO.getPrice().equals("") || foodDTO.getDescription().equals("")){
+            LOGGER.warn("Empty fields");
             return ResponseEntity.badRequest().headers(headers).body(null);
         }
         FoodMapper foodMapper = FoodMapper.getInstance();
@@ -104,19 +116,23 @@ public class AdminController {
             foodService.save(food);
             LoginController.getCurrentUser().getRestaurant().getFoods().add(food);
         }catch (Exception e){
+            LOGGER.error("Error while adding food");
             e.printStackTrace();
         }
+        LOGGER.info("Food added");
         return ResponseEntity.ok().headers(headers).body(food);
     }
 
     @GetMapping("/getRestaurantFoods")
     public ResponseEntity<List<Food>> getRestaurantFoods(){
+        LOGGER.info("Request for getting restaurant foods");
         List<Food> foods = LoginController.getCurrentUser().getRestaurant().getFoods();
         return new ResponseEntity<>(foods, HttpStatus.OK);
     }
 
     @GetMapping("/getOrders")
     public ResponseEntity<List<Order>> getRestaurantOrders(){
+        LOGGER.info("Request for getting restaurant orders");
         List<Order> orders = LoginController.getCurrentUser().getRestaurant().getOrders();
         System.out.println(orders.size());
         return new ResponseEntity<>(orders, HttpStatus.OK);
@@ -124,6 +140,7 @@ public class AdminController {
 
     @PostMapping("/declineOrder")
     public ResponseEntity<Order> denyOrder(@RequestBody Integer orderId){
+        LOGGER.info("Request for declining order");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Responded","LoginController");
         System.out.println("Decline order" + orderId);

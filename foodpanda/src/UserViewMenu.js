@@ -32,7 +32,7 @@ function UserViewMenu () {
 
     return(
         <div className="App">
-            <header className="App-header"> Breakfast
+            <header className="App-header2"> Breakfast
                 <ul>
                     {
                         breakfasts.map(food =>
@@ -44,7 +44,7 @@ function UserViewMenu () {
                     }
                 </ul>
             </header>
-            <header className="App-header"> Lunches
+            <header className="App-header2"> Lunches
                 <ul>
                     {
                         lunches.map(food =>
@@ -56,7 +56,7 @@ function UserViewMenu () {
                     }
                 </ul>
             </header>
-            <header className="App-header"> Desserts
+            <header className="App-header2"> Desserts
                 <ul>
                     {
                         desserts.map(food =>
@@ -68,7 +68,7 @@ function UserViewMenu () {
                     }
                 </ul>
             </header>
-            <header className="App-header"> Beverages
+            <header className="App-header2"> Beverages
                 <ul>
                     {
                         beverages.map(food =>
