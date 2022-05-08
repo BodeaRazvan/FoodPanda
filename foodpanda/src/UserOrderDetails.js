@@ -3,15 +3,18 @@ import './App.css';
 import './index.css';
 import {Link, useLocation} from "react-router-dom";
 import axios from "axios";
+import {useAuth} from "./store";
 
 function UserOrderDetails() {
     const location = useLocation()
     const {id} = location.state
     const[food,setFood] = React.useState([]);
+    const auth = useAuth();
 
     useEffect(()=>{
         async function getData(){
-            axios.get('http://localhost:8080/foodpanda/getOrderFoods/' + location.state.id)
+            axios.get('http://localhost:8080/getOrderFoods/' + location.state.id,
+                {headers:{ Authorization: auth.token}})
                 .then(async res=>{
                     const data = await res.data;
                     console.log(data)

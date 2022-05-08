@@ -10,7 +10,7 @@ function RegisterPage() {
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
     const register = () => {
-        fetch('http://localhost:8080/foodpanda/register', {
+        fetch('http://localhost:8080/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

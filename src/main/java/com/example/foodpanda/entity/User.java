@@ -3,8 +3,13 @@ package com.example.foodpanda.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /*
@@ -15,7 +20,7 @@ I chose this method because, even tho we waste some space (we have NULL values),
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -37,12 +42,10 @@ public class User {
     private String role;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.DETACH, orphanRemoval = true)
-    @JsonIgnoreProperties("owner")
     @JsonManagedReference
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.DETACH, orphanRemoval = true,fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Order> order;
 
@@ -124,5 +127,40 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        ArrayList<GrantedAuthority> authorities = new ArrayList<>();
+        if (this.role.equals("ADMIN")) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
     }
 }

@@ -1,9 +1,11 @@
 import './App.css';
 import './index.css';
 import {Link, useNavigate} from "react-router-dom";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useAuth} from "./store";
 
 function AddFood (){
+    const auth = useAuth();
     let navigate = useNavigate();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -11,10 +13,11 @@ function AddFood (){
     const [category, setCategory] = useState('');
 
     const addFood = () =>{
-        fetch('http://localhost:8080/foodpanda/addFood',{
+        fetch('http://localhost:8080/addFood',{
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization':  auth.token
             },
             body:JSON.stringify({
                 name: name,
@@ -32,6 +35,17 @@ function AddFood (){
                 console.log(error)
             });
     }
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+            return;
+        }
+        if(auth.user.role !== 'ADMIN'){
+            navigate('/login');
+        }
+    },[])
+
     return(
         <div className="App">
             <header className="App-header">

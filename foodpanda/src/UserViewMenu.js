@@ -1,12 +1,14 @@
 import {Link, useLocation} from 'react-router-dom'
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {useAuth} from "./store";
 
 function UserViewMenu () {
     const location = useLocation()
     const {id} = location.state
     const [menu, setMenu] = useState([])
     const[cart, setCart] = useState([])
+    const auth = useAuth();
 
     function addToCart(newItem){
         return [...cart, newItem];
@@ -15,7 +17,9 @@ function UserViewMenu () {
     useEffect(() => {
         console.log("Got hre");
         async function getData() {
-            axios.get('http://localhost:8080/foodpanda/getRestaurantMenu/' + location.state.id)
+            axios.get('http://localhost:8080/getRestaurantMenu/' + location.state.id,
+                {headers: {Authorization: auth.token}}
+                )
                 .then(async response => {
                     const data = await response.data
                     console.log(data);

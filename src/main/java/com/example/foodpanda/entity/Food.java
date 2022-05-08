@@ -1,6 +1,7 @@
 package com.example.foodpanda.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -27,11 +28,11 @@ public class Food {
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
-    @JsonIgnoreProperties("foods")
+    @JsonIgnore
     private Restaurant restaurant;
 
     @ManyToMany(mappedBy = "food")
-    @JsonBackReference
+    @JsonIgnore
     private List<Order> orders;
 
     public Food(){

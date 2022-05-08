@@ -1,18 +1,21 @@
 import './App.css';
 import React, {useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
+import {login as loginAction} from "./store/auth"
 
 function LoginPage() {
+    const dispatch = useDispatch();
     let navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const inputRefference = useRef(null);
     const inputRefference1 = useRef(null);
     const login = () => {
-        fetch('http://localhost:8080/foodpanda/loginuser', {
+        fetch('http://localhost:8080/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                 username: username,
@@ -22,11 +25,12 @@ function LoginPage() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                if(data.role === "USER"){
+                dispatch(loginAction(data))
+                if(data.user.role === "USER"){
                     navigate("/user");
                     return;
                 }
-                else if(data.role === "ADMIN"){
+                else if(data.user.role === "ADMIN"){
                     navigate("/admin");
                     return;
                 }

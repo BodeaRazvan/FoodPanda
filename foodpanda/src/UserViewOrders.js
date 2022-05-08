@@ -3,14 +3,16 @@ import './App.css';
 import './index.css';
 import {Link} from "react-router-dom";
 import axios from "axios";
+import {useAuth} from "./store";
 
 function UserViewOrders() {
     const[orders, setOrders] = React.useState([]);
     const[statusFilter, setStatusFilter] = React.useState("");
+    const auth = useAuth();
 
     useEffect(() => {
         async function getOrders(){
-            axios.get('http://localhost:8080/foodpanda/getUserOrders')
+            axios.get('http://localhost:8080/getUserOrders',{headers: {'Authorization':  auth.token}})
                 .then(async response => {
                     console.log(response.data);
                     const data = await response.data;

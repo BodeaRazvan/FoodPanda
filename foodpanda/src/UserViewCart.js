@@ -3,17 +3,20 @@ import './index.css';
 import {Link} from "react-router-dom";
 import React from "react";
 import {useLocation} from "react-router";
+import {useAuth} from "./store";
 
 function UserViewCart(){
     const location = useLocation();
     const {cart} = location.state;
     const totalPrice = cart.reduce((total, currValue) => total + currValue.price, 0).toFixed(2);
     const [details, setDetails] = React.useState([]);
+    const auth = useAuth();
 
     const placeOrder = () =>{
-        fetch('http://localhost:8080/foodpanda/placeOrder',{
+        fetch('http://localhost:8080/placeOrder',{
             method: 'POST',
             headers: {
+                'Authorization': auth.token,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({

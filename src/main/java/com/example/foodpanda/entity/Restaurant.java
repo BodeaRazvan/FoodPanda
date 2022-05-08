@@ -1,7 +1,11 @@
 package com.example.foodpanda.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -22,18 +26,18 @@ public class Restaurant {
     @Column
     private String availableZones;
 
-    @OneToMany
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnoreProperties("restaurant")
+    @Fetch(FetchMode.SELECT)
     private List<Order> orders;
 
     @OneToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnoreProperties("restaurant")
-    @JsonManagedReference
+    @JsonIgnore
     private User owner;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.DETACH, orphanRemoval = true)
-    @JsonIgnoreProperties("restaurant")
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.DETACH, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SELECT)
     private List<Food> foods;
 
     public Restaurant(String name, String location, String availableZones, User owner) {

@@ -1,45 +1,45 @@
-import React, {Component, useState} from "react";
+import React, {Component, useEffect, useState} from "react";
 import './App.css';
 import './index.css';
 import axios from "axios";
 import {Link} from "react-router-dom";
+import {useAuth} from "./store";
 
-class UserViewRestaurants extends Component{
-    constructor(props) {
-        super(props);
-        this.state={
-            restaurants:[],
-            restaurantNames:''
-        }
-    }
+function UserViewRestaurants() {
+    const [restaurants, setRestaurants] = useState([]);
+    const auth = useAuth();
+    const [restaurantNames, setRestaurantNames] = useState('');
 
-    async componentDidMount(){
-        axios.get('http://localhost:8080/foodpanda/getRestaurants')
-            .then(response =>{
-                const responseData = response.data;
-                console.log(responseData);
-                this.setState({restaurants:responseData});
+    useEffect(() => {
+        async function getRestaurants(){
+        axios.get('http://localhost:8080/getRestaurants',
+            {headers: {'Authorization':  auth.token}}
+        )
+            .then(async response => {
+                const data = await response.data;
+                setRestaurants(data);
             })
     }
+    getRestaurants();
+    }, [])
 
-    render(){
-        return(
+    return(
         <div className="App">
             <header className="App-header"> Restaurant List
                 <br/><br/>
                 <p> Search for name</p>
-                <input onChange={(e) => this.setState({...this.state, restaurantNames:e.target.value})}/>
+                <input onChange={(e) => setRestaurantNames(e.target.value)}/>
                 <br/>
-                    <ul>
-                        {
-                            this.state.restaurants.filter((restaurant) =>{
-                                console.log(this.state.restaurantNames)
-                                if(this.state.restaurantNames === ''){
-                                    return true;
-                                }
-                                return restaurant.name.toLowerCase().includes(this.state.restaurantNames.toLowerCase());
-                            })
-                                .map(restaurant =>
+                <ul>
+                    {
+                        restaurants.filter((restaurant) =>{
+                            console.log(restaurantNames)
+                            if(restaurantNames === ''){
+                                return true;
+                            }
+                            return restaurant.name.toLowerCase().includes(restaurantNames.toLowerCase());
+                        })
+                            .map(restaurant =>
                                 <li key={restaurant.id}>
                                     {restaurant.name}
                                     <br/>
@@ -52,17 +52,16 @@ class UserViewRestaurants extends Component{
                                     <button>
                                         <Link to = "/UserViewMenu" state={{id: restaurant.id}} > View Menu</Link>
                                     </button>
-                                     <br/>
+                                    <br/>
                                     <br/>
                                 </li>
                             )
-                        }
-                    </ul>
+                    }
+                </ul>
             </header>
         </div>
-        );
-    }
-}
+    );
 
+}
 
 export default UserViewRestaurants;

@@ -1,0 +1,70 @@
+2022-05-07 17:44:17,699 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Starting FoodpandaApplication using Java 18 on DESKTOP-BKF561S with PID 1832 (C:\GitHub Repositories\SD\FoodPanda\target\classes started by razvi in C:\GitHub Repositories\SD\FoodPanda)
+2022-05-07 17:44:17,702 INFO org.springframework.boot.SpringApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2022-05-07 17:44:17,770 INFO org.springframework.boot.logging.DeferredLog [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-05-07 17:44:17,770 INFO org.springframework.boot.logging.DeferredLog [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-05-07 17:44:18,478 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-05-07 17:44:18,553 INFO org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 65 ms. Found 4 JPA repository interfaces.
+2022-05-07 17:44:19,175 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2022-05-07 17:44:19,191 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing ProtocolHandler ["http-nio-8080"]
+2022-05-07 17:44:19,192 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting service [Tomcat]
+2022-05-07 17:44:19,192 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.60]
+2022-05-07 17:44:19,278 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Initializing Spring embedded WebApplicationContext
+2022-05-07 17:44:19,279 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 1507 ms
+2022-05-07 17:44:19,459 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-05-07 17:44:19,512 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 5.6.7.Final
+2022-05-07 17:44:19,636 INFO org.hibernate.annotations.common.reflection.java.JavaReflectionManager [restartedMain] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-05-07 17:44:19,729 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2022-05-07 17:44:20,001 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2022-05-07 17:44:20,019 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-05-07 17:44:20,849 INFO org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-05-07 17:44:20,859 INFO org.springframework.orm.jpa.AbstractEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-05-07 17:44:21,117 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,203 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,228 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,253 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,271 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,274 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,276 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,278 INFO com.example.foodpanda.logger.MyLogger [restartedMain] MyLogger instance created
+2022-05-07 17:44:21,341 WARN org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-05-07 17:44:21,691 INFO org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2022-05-07 17:44:21,711 INFO org.apache.juli.logging.DirectJDKLog [restartedMain] Starting ProtocolHandler ["http-nio-8080"]
+2022-05-07 17:44:21,736 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path '/foodpanda'
+2022-05-07 17:44:21,751 INFO org.springframework.boot.StartupInfoLogger [restartedMain] Started FoodpandaApplication in 4.616 seconds (JVM running for 5.707)
+2022-05-07 17:44:39,440 INFO org.apache.juli.logging.DirectJDKLog [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-05-07 17:44:39,440 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-05-07 17:44:39,441 INFO org.springframework.web.servlet.FrameworkServlet [http-nio-8080-exec-1] Completed initialization in 1 ms
+2022-05-07 17:44:39,543 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-1] Login controller request login user
+2022-05-07 17:44:39,629 INFO com.example.foodpanda.service.UserService [http-nio-8080-exec-1] Finding user with username Razvan
+2022-05-07 17:44:39,866 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-1] User logged in successfully
+2022-05-07 17:44:47,323 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-3] Login controller request login user
+2022-05-07 17:44:47,422 INFO com.example.foodpanda.service.UserService [http-nio-8080-exec-3] Finding user with username a
+2022-05-07 17:44:47,426 ERROR com.example.foodpanda.controller.LoginController [http-nio-8080-exec-3] Login failed (user not found or password is incorrect)
+2022-05-07 17:45:04,628 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-4] Login controller request login user
+2022-05-07 17:45:04,728 INFO com.example.foodpanda.service.UserService [http-nio-8080-exec-4] Finding user with username Razvan
+2022-05-07 17:45:04,816 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-4] User logged in successfully
+2022-05-07 17:45:06,470 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-5] Request for getting all restaurants
+2022-05-07 17:45:06,472 INFO com.example.foodpanda.service.RestaurantService [http-nio-8080-exec-5] Finding all restaurants
+2022-05-07 17:45:14,846 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-7] Request for getting menu of restaurant with id: 1
+2022-05-07 17:45:14,847 INFO com.example.foodpanda.service.RestaurantService [http-nio-8080-exec-7] Finding restaurant with id 1
+2022-05-07 17:45:23,563 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-9] Request for placing order
+2022-05-07 17:45:23,563 INFO com.example.foodpanda.service.OrderService [http-nio-8080-exec-9] Adding order for user Razvan
+2022-05-07 17:45:23,564 INFO com.example.foodpanda.service.FoodService [http-nio-8080-exec-9] Finding food with id 4
+2022-05-07 17:45:23,573 INFO com.example.foodpanda.service.FoodService [http-nio-8080-exec-9] Finding food with id 3
+2022-05-07 17:45:23,579 INFO com.example.foodpanda.service.FoodService [http-nio-8080-exec-9] Finding food with id 5
+2022-05-07 17:45:23,651 INFO com.example.foodpanda.service.RestaurantService [http-nio-8080-exec-9] Saving restaurant
+2022-05-07 17:45:23,673 INFO com.example.foodpanda.service.OrderService [http-nio-8080-exec-9] Order added for user Razvan
+2022-05-07 17:45:37,574 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-10] Request for getting menu of restaurant with id: 1
+2022-05-07 17:45:37,575 INFO com.example.foodpanda.service.RestaurantService [http-nio-8080-exec-10] Finding restaurant with id 1
+2022-05-07 17:45:37,698 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-1] Request for getting all restaurants
+2022-05-07 17:45:37,698 INFO com.example.foodpanda.service.RestaurantService [http-nio-8080-exec-1] Finding all restaurants
+2022-05-07 17:45:43,104 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-3] Login controller request login user
+2022-05-07 17:45:43,201 INFO com.example.foodpanda.service.UserService [http-nio-8080-exec-3] Finding user with username admin
+2022-05-07 17:45:43,323 INFO com.example.foodpanda.controller.LoginController [http-nio-8080-exec-3] User logged in successfully
+2022-05-07 17:45:54,317 INFO com.example.foodpanda.controller.AdminController [http-nio-8080-exec-5] Request for getting restaurant orders
+2022-05-07 17:45:56,445 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-6] Request for getting foods of order with id: 65
+2022-05-07 17:45:56,447 INFO com.example.foodpanda.service.OrderService [http-nio-8080-exec-6] Finding order with id 65
+2022-05-07 17:46:01,277 INFO com.example.foodpanda.controller.AdminController [http-nio-8080-exec-8] Request for getting restaurant orders
+2022-05-07 17:46:05,551 INFO com.example.foodpanda.controller.UserController [http-nio-8080-exec-10] Request for getting foods of order with id: 65
+2022-05-07 17:46:05,552 INFO com.example.foodpanda.service.OrderService [http-nio-8080-exec-10] Finding order with id 65
+2022-05-07 17:46:10,013 INFO com.example.foodpanda.controller.AdminController [http-nio-8080-exec-1] Request for getting restaurant orders

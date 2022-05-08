@@ -3,31 +3,37 @@ import './index.css';
 import {Link} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import axios from "axios";
-
+import {useAuth} from "./store";
+import {useNavigate} from "react-router";
 
 
 function AdminViewOrder(){
+    let navigate = useNavigate();
     const[orders, setOrders] = useState([])
     const[selectedOrder, setSelectedOrder] = useState(0)
     const[statusFilter, setStatusFilter] = useState('')
     const[priceFilter, setPriceFilter] = useState('')
+    const auth = useAuth();
 
     useEffect(() => {
         async function getOrders(){
-            axios.get('http://localhost:8080/foodpanda/getOrders')
+            axios.get('http://localhost:8080/getOrders',
+                {headers: {'Authorization':  auth.token}}
+                )
                 .then(async response =>{
                     const data = await response.data;
                     console.log(data);
-                    setOrders(response.data)
+                    setOrders(data)
                 })
         }
         getOrders();
     }, []);
 
     function declineOrder(orderId){
-        fetch('http://localhost:8080/foodpanda/declineOrder', {
+        fetch('http://localhost:8080/declineOrder', {
             method: 'POST',
             headers: {
+                'Authorization': auth.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -45,9 +51,10 @@ function AdminViewOrder(){
     }
 
     function nextStatus(orderId){
-        fetch('http://localhost:8080/foodpanda/nextOrderStatus', {
+        fetch('http://localhost:8080/nextOrderStatus', {
             method: 'POST',
             headers: {
+                'Authorization': auth.token,
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
@@ -63,6 +70,17 @@ function AdminViewOrder(){
                }))
             })
     }
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+            return;
+        }
+        if(auth.user.role !== 'ADMIN'){
+            navigate('/login');
+        }
+    },[])
+
 
     return (
         <div className="App">

@@ -22,9 +22,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Controller
+@RolesAllowed("ADMIN")
 @CrossOrigin
 public class AdminController {
     private static final Logger LOGGER = MyLogger.getInstance();

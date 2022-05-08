@@ -17,9 +17,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @RestController
+@RolesAllowed("USER")
 @CrossOrigin
 public class UserController {
     private static final Logger LOGGER = MyLogger.getInstance();
