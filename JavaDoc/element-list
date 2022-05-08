@@ -1,0 +1,10 @@
+com.example.foodpanda
+com.example.foodpanda.controller
+com.example.foodpanda.dto
+com.example.foodpanda.entity
+com.example.foodpanda.logger
+com.example.foodpanda.mail
+com.example.foodpanda.repository
+com.example.foodpanda.security
+com.example.foodpanda.security.jwt
+com.example.foodpanda.service

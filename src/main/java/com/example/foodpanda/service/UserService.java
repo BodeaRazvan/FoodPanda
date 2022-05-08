@@ -41,9 +41,10 @@ public class UserService{
      *
      * @param user the user we want to save
      */
-    public void save(User user){
+    public User save(User user){
         LOGGER.info("Saving user");
         userRepository.save(user);
+        return user;
     }
 
 

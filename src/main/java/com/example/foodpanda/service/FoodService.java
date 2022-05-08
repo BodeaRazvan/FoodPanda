@@ -42,10 +42,12 @@ public class FoodService {
      * Save food to the database
      *
      * @param food we want to save
+     * @return
      */
-    public void save(Food food){
+    public Food save(Food food){
         LOGGER.info("Saving food");
         foodRepository.save(food);
+        return food;
     }
 
     /**

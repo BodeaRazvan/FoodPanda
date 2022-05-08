@@ -43,9 +43,10 @@ public class RestaurantService {
      *
      * @param restaurant the restaurant we want to save
      */
-    public void save(Restaurant restaurant){
+    public Restaurant save(Restaurant restaurant){
         LOGGER.info("Saving restaurant");
         restaurantRepository.save(restaurant);
+        return restaurant;
     }
 
     /**
