@@ -1,11 +1,12 @@
 import './App.css';
 import './index.css';
 import {Link} from "react-router-dom";
-import React from "react";
-import {useLocation} from "react-router";
+import React, {useEffect} from "react";
+import {useLocation, useNavigate} from "react-router";
 import {useAuth} from "./store";
 
 function UserViewCart(){
+    let navigate = useNavigate();
     const location = useLocation();
     const {cart} = location.state;
     const totalPrice = cart.reduce((total, currValue) => total + currValue.price, 0).toFixed(2);
@@ -30,6 +31,12 @@ function UserViewCart(){
             })
             .catch(err => console.log(err));
     }
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+        }
+    },[])
 
     return (
         <div className="App">

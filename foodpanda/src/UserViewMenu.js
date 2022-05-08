@@ -2,8 +2,10 @@ import {Link, useLocation} from 'react-router-dom'
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {useAuth} from "./store";
+import {useNavigate} from "react-router";
 
 function UserViewMenu () {
+    let navigate = useNavigate();
     const location = useLocation()
     const {id} = location.state
     const [menu, setMenu] = useState([])
@@ -27,6 +29,12 @@ function UserViewMenu () {
                 })
         }
         getData();
+    },[])
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+        }
     },[])
 
     const breakfasts = menu.filter(food => food.category === "BREAKFAST");

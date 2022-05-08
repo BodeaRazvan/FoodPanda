@@ -4,8 +4,10 @@ import './index.css';
 import {Link, useLocation} from "react-router-dom";
 import axios from "axios";
 import {useAuth} from "./store";
+import {useNavigate} from "react-router";
 
 function UserOrderDetails() {
+    let navigate = useNavigate();
     const location = useLocation()
     const {id} = location.state
     const[food,setFood] = React.useState([]);
@@ -23,6 +25,13 @@ function UserOrderDetails() {
         }
         getData()
         },[])
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+        }
+    },[])
+
     return(
         <div className="App">
             <header className="App-header">

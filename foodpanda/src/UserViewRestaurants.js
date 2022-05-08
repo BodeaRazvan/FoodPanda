@@ -4,8 +4,10 @@ import './index.css';
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {useAuth} from "./store";
+import {useNavigate} from "react-router";
 
 function UserViewRestaurants() {
+    let navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
     const auth = useAuth();
     const [restaurantNames, setRestaurantNames] = useState('');
@@ -22,6 +24,12 @@ function UserViewRestaurants() {
     }
     getRestaurants();
     }, [])
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+        }
+    },[])
 
     return(
         <div className="App">

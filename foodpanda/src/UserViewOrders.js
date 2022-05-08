@@ -4,8 +4,10 @@ import './index.css';
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {useAuth} from "./store";
+import {useNavigate} from "react-router";
 
 function UserViewOrders() {
+    let navigate = useNavigate();
     const[orders, setOrders] = React.useState([]);
     const[statusFilter, setStatusFilter] = React.useState("");
     const auth = useAuth();
@@ -21,6 +23,12 @@ function UserViewOrders() {
         }
         getOrders();
         },[])
+
+    useEffect(() => {
+        if(!auth.token){
+            navigate('/login');
+        }
+    },[])
 
     return(
         <div className="App">
